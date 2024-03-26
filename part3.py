@@ -8,7 +8,7 @@ from sklearn.neighbors import kneighbors_graph
 from sklearn.preprocessing import StandardScaler
 from itertools import cycle, islice
 import scipy.io as io
-from scipy.cluster.hierarchy import dendrogram, linkage  #
+from scipy.cluster.hierarchy import dendrogram, linkage  
 
 # import plotly.figure_factory as ff
 import math
@@ -27,8 +27,17 @@ Recall from lecture that agglomerative hierarchical clustering is a greedy itera
 # the question asked.
 
 
-def data_index_function():
-    return None
+def data_index_function(data,I,J):
+    points_I = data[I]
+    points_J = data[J]
+
+    # Calculate pairwise Euclidean distances between points in sets I and J
+    distances = np.linalg.norm(points_I[:, np.newaxis] - points_J, axis=2)
+
+    # Find the minimum distance (single-link)
+    dissimilarity = np.min(distances)
+    print(dissimilarity)
+    return dissimilarity
 
 
 def compute():
@@ -39,29 +48,39 @@ def compute():
     """
 
     # return value of scipy.io.loadmat()
-    answers["3A: toy data"] = {}
+    toy_data = io.loadmat("hierarchical_toy_data.mat")
+    answers["3A: toy data"] = toy_data
 
     """
     B.	Create a linkage matrix Z, and plot a dendrogram using the scipy.hierarchy.linkage and scipy.hierachy.dendrogram functions, with “single” linkage.
     """
 
     # Answer: NDArray
-    answers["3B: linkage"] = np.zeros(1)
+    Z = linkage(toy_data["X"], method='single')
+    answers["3B: linkage"] = Z
 
+    # Plot the dendrogram
+    plt.figure(figsize=(10, 6))
+    dendrogram(Z)
+    plt.title('Dendrogram with Single Linkage')
+    plt.xlabel('Sample Index')
+    plt.ylabel('Distance')
+    plt.savefig("3B: Dendogram")
     # Answer: the return value of the dendogram function, dicitonary
-    answers["3B: dendogram"] = {}
+    answers["3B: dendogram"] = dendrogram(Z)
 
     """
     C.	Consider the merger of the cluster corresponding to points with index sets {I={8,2,13}} J={1,9}}. At what iteration (starting from 0) were these clusters merged? That is, what row does the merger of A correspond to in the linkage matrix Z? The rows count from 0. 
     """
 
     # Answer type: integer
-    answers["3C: iteration"] = -1
+    answers["3C: iteration"] = 4
 
     """
     D.	Write a function that takes the data and the two index sets {I,J} above, and returns the dissimilarity given by single link clustering using the Euclidian distance metric. The function should output the same value as the 3rd column of the row found in problem 2.C.
     """
     # Answer type: a function defined above
+    data_index_function(toy_data['X'],[8,2,13],[1,9])
     answers["3D: function"] = data_index_function
 
     """
@@ -70,14 +89,14 @@ def compute():
     """
 
     # List the clusters. the [{0,1,2}, {3,4}, {5}, {6}, ...] represents a list of lists.
-    answers["3E: clusters"] = [{0, 0}, {0, 0}]
+    answers["3E: clusters"] = [[6,14],[4],[5],[11],[0],[10],[3],[7],[12]]
 
     """
     F.	Single linked clustering is often criticized as producing clusters where “the rich get richer”, that is, where one cluster is continuously merging with all available points. Does your dendrogram illustrate this phenomenon?
     """
 
     # Answer type: string. Insert your explanation as a string.
-    answers["3F: rich get richer"] = ""
+    answers["3F: rich get richer"] = "Yes. This phenomenon is observed from the dendogram. It can be observed that the cluster represented by indices 8,2,13,1,9,4,6,14 continuously merges with others, resulting in a large cluster encompassing a significant portion of the dataset. In single linkage this is typically observed where a larger cluster might continuously merge with smaller clusters expanding it size since they merge based on the minimum distance between any two points in the cluster."
 
     return answers
 
