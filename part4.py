@@ -84,11 +84,11 @@ def compute():
     # keys: 'nc', 'nm', 'bvv', 'add', 'b' (abbreviated datasets)
     dct = answers["4A: datasets"] = {}
 
-    dct["nc"] = [nc, nc_labels]
-    dct["nm"] = [nm, nm_labels]
-    dct["bvv"] = [bvv, bvv_labels]
-    dct["add"] = [add, add_labels]
-    dct["b"] = [b, b_labels]
+    dct['nc'] = [nc, nc_labels]
+    dct['nm'] = [nm, nm_labels]
+    dct['bvv'] = [bvv, bvv_labels]
+    dct['add'] = [add, add_labels]
+    dct['b'] = [b, b_labels]
 
 
     # dct value:  the `fit_hierarchical_cluster` function
@@ -109,7 +109,7 @@ def compute():
     plots(datasets, dataset_names, linkage_list,"4B: Hierarchical Clusters")
 
     # dct value: list of dataset abbreviations (see 1.C)
-    dct = answers["4B: cluster successes"] = ["nc","nm"]
+    dct = answers["4B: cluster successes"] = ['nc','nm']
 
     """
     C.	There are essentially two main ways to find the cut-off point for breaking the diagram: specifying the number of clusters and specifying a maximum distance. The latter is challenging to optimize for without knowing and/or directly visualizing the dendrogram, however, sometimes simple heuristics can work well. The main idea is that since the merging of big clusters usually happens when distances increase, we can assume that a large distance change between clusters means that they should stay distinct. Modify the function from part 1.A to calculate a cut-off distance before classification. Specifically, estimate the cut-off distance as the maximum rate of change of the distance between successive cluster merges (you can use the scipy.hierarchy.linkage function to calculate the linkage matrix with distances). Apply this technique to all the datasets and make a plot similar to part 4.B.

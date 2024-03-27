@@ -3,7 +3,7 @@ import time
 import warnings
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import cluster, datasets, mixture
+from sklearn import cluster, mixture
 from sklearn.neighbors import kneighbors_graph
 from sklearn.preprocessing import StandardScaler
 from itertools import cycle, islice
@@ -91,11 +91,11 @@ def compute():
     
     dct = answers["1A: datasets"] = {}
 
-    dct["nc"] = [nc, nc_labels]
-    dct["nm"] = [nm, nm_labels]
-    dct["bvv"] = [bvv, bvv_labels]
-    dct["add"] = [add, add_labels]
-    dct["b"] = [b, b_labels]
+    dct['nc'] = [nc, nc_labels]
+    dct['nm'] = [nm, nm_labels]
+    dct['bvv'] = [bvv, bvv_labels]
+    dct['add'] = [add, add_labels]
+    dct['b'] = [b, b_labels]
 
     """
    B. Write a function called fit_kmeans that takes dataset (before any processing on it), i.e., pair of (data, label) Numpy arrays, and the number of clusters as arguments, and returns the predicted labels from k-means clustering. Use the init='random' argument and make sure to standardize the data (see StandardScaler transform), prior to fitting the KMeans estimator. This is the function you will use in the following questions. 
@@ -124,11 +124,11 @@ def compute():
     # dct value: return a dictionary of one or more abbreviated dataset names (zero or more elements) 
     # and associated k-values with correct clusters.  key abbreviations: 'nc', 'nm', 'bvv', 'add', 'b'. 
     # The values are the list of k for which there is success. Only return datasets where the list of cluster size k is non-empty.
-    dct = answers["1C: cluster successes"] = {"bvv": [2,3], "add": [3],"b":[3]} 
+    dct = answers["1C: cluster successes"] = {'bvv': [2,3], 'add': [3],'b':[3]} 
 
     # dct value: return a list of 0 or more dataset abbreviations (list has zero or more elements, 
     # which are abbreviated dataset names as strings)
-    dct = answers["1C: cluster failures"] = ["nc", "nm"]
+    dct = answers["1C: cluster failures"] = ['nc', 'nm']
 
     """
     D. Repeat 1.C a few times and comment on which (if any) datasets seem to be sensitive to the choice of initialization for the k=2,3 cases. You do not need to add the additional plots to your report.
@@ -146,7 +146,7 @@ def compute():
     # dct value: list of dataset abbreviations
     # Look at your plots, and return your answers.
     # The plot is part of your report, a pdf file name "report.pdf", in your repository.
-    dct = answers["1D: datasets sensitive to initialization"] = ["nc","nm","add"]
+    dct = answers["1D: datasets sensitive to initialization"] = ['nc','nm','add']
 
     return answers
 
@@ -157,5 +157,3 @@ if __name__ == "__main__":
 
     with open("part1.pkl", "wb") as f:
         pickle.dump(answers, f)
-
-"Why do you say all the datasets are sensitive to choice of initialization?"
