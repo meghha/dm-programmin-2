@@ -34,7 +34,7 @@ def fit_hierarchical_cluster(data,linkage_type,n_clusters):
 
 def fit_modified(data,linkage_type,n_clusters):
     Z = linkage(data, method=linkage_type)
-    
+
     distances = np.diff(Z[:, 2], 2)
     max_rate_idx = np.argmax(distances)
     cutoff_distance = Z[max_rate_idx, 2]
@@ -118,7 +118,7 @@ def compute():
     """
     plots(datasets, dataset_names, linkage_list,"4C: Hierarchical Clusters with distance cutoff",'C')
     # dct is the function described above in 4.C
-    dct = answers["4A: modified function"] = fit_modified
+    dct = answers["4C: modified function"] = fit_modified
 
     return answers
 
