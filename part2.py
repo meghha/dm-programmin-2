@@ -99,6 +99,8 @@ def compute():
     plt.ylabel('Sum of Squared Errors (SSE)')
     plt.title('Elbow Method for Optimal k')
     plt.xticks(k_values)
+    plt.tight_layout()
+    plt.savefig("2C: SSE plot")
 
     # Find the optimal k using the elbow method
     # Optimal k is often the point where the rate of decrease of SSE slows down (elbow point)
@@ -109,8 +111,7 @@ def compute():
     # dct value: a list of tuples, e.g., [[0, 100.], [1, 200.]]
     # Each tuple is a (k, SSE) pair
     dct = answers["2C: SSE plot"] = k_sse
-    plt.tight_layout()
-    plt.savefig("2C: SSE plot")
+
     """
     D.	Repeat part 2.C for inertia (note this is an attribute in the kmeans estimator called _inertia). Do the optimal k’s agree?
     """
@@ -127,7 +128,7 @@ def compute():
     
     plt.plot(k_values, inertia_values, marker='o', linestyle='-')
     plt.xlabel('Number of clusters (k)')
-    plt.ylabel('Sum of Squared Errors (SSE)')
+    plt.ylabel('Inertia from K Means function')
     plt.title('Elbow Method for Optimal k')
     plt.xticks(k_values)
     plt.tight_layout()
